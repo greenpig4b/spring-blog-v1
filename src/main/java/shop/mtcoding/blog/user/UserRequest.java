@@ -20,7 +20,7 @@ public class UserRequest {
     @Data // getter setter 포함
     public static class LoginDTO{
         private String username;
-        private String passoword;
+        private String password;
     }
     /*------------------------*/
 }

@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 public class UserRepository {
     private EntityManager em;
 
+    //데이터 담는곳
     public UserRepository(EntityManager em) {
         this.em = em;
     }
@@ -23,8 +24,19 @@ public class UserRepository {
 
         query.executeUpdate();
     }
+
+
+    public User findByUsernameAndPassword(UserRequest.LoginDTO requestDTO) {
+        Query query = em.createNativeQuery("select * from user_tb where username = ? and password = ?",User.class);
+        query.setParameter(1,requestDTO.getUsername());
+        query.setParameter(2,requestDTO.getPassword());
+
+        User user = (User)query.getSingleResult();
+        return user;
+    }
+
     //하이버 네이트
-    @Transactional
+    @Transactional //붙지않으면 insert하지않음 select는 리드라서 상광없음
     public void save2(UserRequest.JoinDTO requestDTO){
         User user = new User();
         user.setUsername(requestDTO.getUsername());
@@ -34,8 +46,6 @@ public class UserRepository {
         em.persist(user);
 
     }
-
-
 
 }
 
