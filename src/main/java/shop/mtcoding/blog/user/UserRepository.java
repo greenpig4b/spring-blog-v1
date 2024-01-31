@@ -16,7 +16,8 @@ public class UserRepository {
     public UserRepository(EntityManager em) {
         this.em = em;
     }
-    @Transactional
+
+    @Transactional //붙지않으면 insert하지않음 select는 리드라서 상광없음, 같이 사용할일 없는 독립적인 트렉젝션
     public void save(UserRequest.JoinDTO requestDTO){
         Query query = em.createNativeQuery("insert into user_tb(username, password, email) values(?, ?, ?)");
         query.setParameter(1, requestDTO.getUsername());
@@ -25,16 +26,15 @@ public class UserRepository {
         query.executeUpdate();
     }
 
-    public void save2(UserRequest.JoinDTO requestDTO){
-        User user = new User();
-        user.setUsername(requestDTO.getUsername());
-        user.setPassword(requestDTO.getPassword());
-        user.setEmail(requestDTO.getEmail());
-
-        em.persist(user);
-
-    }
-
+//    public void save2(UserRequest.JoinDTO requestDTO){
+//        User user = new User();
+//        user.setUsername(requestDTO.getUsername());
+//        user.setPassword(requestDTO.getPassword());
+//        user.setEmail(requestDTO.getEmail());
+//
+//        em.persist(user);
+//
+//    }
     public User findByUsernameAndPassword(UserRequest.LoginDTO requestDTO) {
         Query query = em.createNativeQuery("select * from user_tb where username = ? and password = ?",User.class);
         query.setParameter(1,requestDTO.getUsername());
@@ -59,8 +59,6 @@ public class UserRepository {
             return null;
         }
     }
-
-    //붙지않으면 insert하지않음 select는 리드라서 상광없음, 같이 사용할일 없는 독립적인 트렉젝션
 
 }
 
