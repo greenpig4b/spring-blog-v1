@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class BoardController {
 
-    private  final HttpSession;
+    private  final HttpSession session;
     private final BoardRePository boardRePository;
 
 
