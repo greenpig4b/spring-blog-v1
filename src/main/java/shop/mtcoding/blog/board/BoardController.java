@@ -1,26 +1,28 @@
 package shop.mtcoding.blog.board;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+
+
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
 
-    private  final HttpSession session;
-    private final BoardRePository boardRePository;
+    private final HttpSession session;
 
-
-    // http://localhost:8080?page=0
     @GetMapping({ "/", "/board" })
-    public String index(HttpServletRequest request, @RequestParam(defaultValue = "0")int page) {
-        List<Board> boardList = boardRePository.findAll(page);
+    public String index() {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        if (sessionUser == null){
+//            System.out.println("로그인이 안된상태입니다");
+//        }else{
+//            System.out.println("로그인 됐음");
+//        }
         return "index";
+
     }
 
     @GetMapping("/board/saveForm")
