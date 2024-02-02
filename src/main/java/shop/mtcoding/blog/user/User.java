@@ -1,9 +1,9 @@
 package shop.mtcoding.blog.user;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 // 테이터를 담는 테이블 만드는 공간

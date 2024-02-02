@@ -1,11 +1,11 @@
 package shop.mtcoding.blog.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpSession;
 
 
 //유효성 검사페이지
@@ -39,6 +39,9 @@ public class UserController {
         }
     }
 
+
+    //-------회원가입--------
+
     @PostMapping("/join")
     public String join(UserRequest.JoinDTO requestDTO){
         //1. 유효성검사
@@ -47,12 +50,15 @@ public class UserController {
         if (requestDTO.getUsername().length() < 3){
             return "error/400";
         }
-
+        System.out.println("hi");
         //2 Model에게 위임하기
         userRepository.save2(requestDTO);
 
         return "redirect:/loginForm";
     }
+
+    //---------------------------
+
 
     @GetMapping("/joinForm")
     public String joinForm() {
