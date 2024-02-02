@@ -39,7 +39,6 @@ public class UserController {
         }
     }
 
-
     //-------회원가입--------
 
     @PostMapping("/join")
@@ -50,9 +49,15 @@ public class UserController {
         if (requestDTO.getUsername().length() < 3){
             return "error/400";
         }
-        System.out.println("hi");
+
         //2 Model에게 위임하기
-        userRepository.save2(requestDTO);
+        User user = userRepository.findByUsername(requestDTO.getUsername());
+        if (user == null){
+            // 3 모델에게 위임
+            userRepository.save(requestDTO);
+        }else{
+            return "error/400";
+        }
 
         return "redirect:/loginForm";
     }

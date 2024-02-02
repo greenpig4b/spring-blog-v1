@@ -13,14 +13,14 @@ public class UserRepository {
 
     // 질문1 :  엔티티메니저 만들고 나서 생성자를 만들어야하는 이유?(데이터 담는곳)인데 데이터를 담으려면 생성자를 초기해야하는지 기본 개념이 필요
 
-    @Transactional //붙지않으면 insert하지않음 select는 리드라서 상관없음
-    public void save2(UserRequest.JoinDTO requestDTO){
-        User user = new User();
-        user.setUsername(requestDTO.getUsername());
-        user.setPassword(requestDTO.getPassword());
-        user.setEmail(requestDTO.getEmail());
-        em.persist(user);
 
+    @Transactional
+    public void save(UserRequest.JoinDTO requestDTO){
+        Query query = em.createNativeQuery("insert into user_tb(username, password, email) values(?, ?, ?)");
+        query.setParameter(1, requestDTO.getUsername());
+        query.setParameter(2, requestDTO.getPassword());
+        query.setParameter(3, requestDTO.getEmail());
+        query.executeUpdate();
     }
 
     public User findByUsernameAndPassword(UserRequest.LoginDTO requestDTO) {
@@ -31,4 +31,16 @@ public class UserRepository {
         User user = (User)  query.getSingleResult();
         return user;
     }
+
+    public User findByUsername(String username){
+        Query query = em.createNativeQuery("select * from user_tb where username=?",User.class);
+        query.setParameter(1,username);
+        try{
+            User user = (User) query.getSingleResult();
+            return user;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 }
