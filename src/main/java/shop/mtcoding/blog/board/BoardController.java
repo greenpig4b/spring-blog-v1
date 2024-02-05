@@ -3,20 +3,21 @@ package shop.mtcoding.blog.board;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import shop.mtcoding.blog._core.PagingUtil;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor  //DI
 @Controller
 public class BoardController {
     //IOC 컨테이너에 세션에 접근할 수 있는 변수가 들어올 수있음 DI하면된다
 
-    private final BoardRepository boardRepository;
+    private final BoardRepository boardRepository; // DI
     private final HttpSession session;
 
 

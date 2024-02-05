@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import shop.mtcoding.blog._core.Constant;
 import java.util.List;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor  //DI
 @Repository
 public class BoardRepository {
-    private final EntityManager em;
+    private final EntityManager em; //DI
 
     public int count(){
         Query query = em.createNativeQuery("select count(*) from board_tb");
